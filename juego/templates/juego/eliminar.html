@@ -1,0 +1,18 @@
+{% extends 'juego/demo.html' %}
+{% load static %}
+{% block title %}Eliminar juegos{% endblock %}
+{% block content %}
+
+
+<form action="eliminar" method="POST">
+    {% csrf_token %}
+    <div class="row">
+        <div class="col s4"></div>
+            <div class="input-field col s4">
+                <label>Ingrese codigo de producto a eliminar: </label>
+                <input type="text" name="codigo" >
+                <input type="submit" name="opcion" value="Eliminar">
+            </div>
+        <div class="col s4"></div>
+    </div>
+</form>

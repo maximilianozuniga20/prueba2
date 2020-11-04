@@ -36,4 +36,17 @@ def listar(request):
     context = {'listado': lista }
     return render(request, 'juego/listar.html', context)
 
+def eliminar(request):
+    print("Eliminando producto")
+    if request.method == 'POST':
+        codigo = request.POST('code')
 
+        if codigo !="":
+            try:
+                juegos = Juegos()
+                juegos = Juegos.objects.get(code=codigo)
+                if juegos is not None:
+                    print("Nombre del juego", juegos)
+                    juegos.delete()
+
+                    return render(request, 'eliminar.html',juegos)
