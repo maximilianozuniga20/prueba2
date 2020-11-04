@@ -1,0 +1,24 @@
+{% extends 'core/base.html' %}
+{% load static %}
+
+
+
+<body>
+    {% block content %}
+    
+    <form action={% url 'actualizar' juego.id %} method="POST">
+        {% csrf_token %}
+        {% if mensaje %}
+            <div class="alert alert-success" role="alert">
+                Juego Actualizado exitosamente!
+            </div>
+        {% if mensaje %}
+
+        {{ form|crispy}}
+
+        <button type="submit" class="btn btn-primary">Guardar</button>
+        <a class="btn btn-warning" href="{% url 'listar' %}">Cancelar</a>
+    </form>
+</body>    
+
+{% endblock %}

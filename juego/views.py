@@ -36,23 +36,21 @@ def listar(request):
     context = {'listado': lista }
     return render(request, 'juego/listar.html', context)
 
-def editar(request):
-    juego_form = None
-    error = None
-    try:
-        juego = Juegos.objects.get(id = id)
-        if request.method == 'GET':
-            juego_form = JuegosForm(instance = autor)
-        else:
-            juego_form = JuegosForm(request.POST, instance = autor)
-            if juego_form.is_valid():
-                juego_form.save()
-            return redirect('index')
-        except ObjectDoesNotExist as e:
-            error = e
-        return render(request,'juego/listar.html', {'juego_form':juego_form,'error':error})
+def edit(request, id_juego):
+    juego = Juegos.objects.filter(id=id_juego).first()
+    form = FormularioJuegos(instance=juego)
+    return render(request, "juego/JuegoEdit.html", {"form":form, "juego":juego} )
 
-def eliminar(request):
-    juego = Juegos.objects.get(id = id)
+def actualizar_juego(request, id_juego):
+    juego = Juegos.objects.get(pk=id_juego)
+    form = FormularioJuegos(request.POST, instance=juego)
+    if form.is_valid():
+        form.save()
+    juegos = Juegos.objects.all()
+    return render(request, "juego/listar.html", {"juegos":juegos} )
+
+def eliminar(request, id_juego):
+    juego = Juegos.objects.get(pk = id_juego)
     juego.delete()
-    return redirect('juegos:listar')
+    juegos = Juegos.objects.all()
+    return render(request, 'juego/listar.html', {'juegos':juegos, "mensaje":'OK'})

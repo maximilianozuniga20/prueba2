@@ -57,9 +57,11 @@
           </div>
         </div>
       </nav>
-
-
-
+        {% if mensaje %}
+          <div class="alert alert-success" role="alert">
+            Juego eliminado exitosamente!  
+          </div>
+        {% endif %}
 
       <table class="table table-dark">
         <thead>
@@ -83,6 +85,8 @@
             {% if lista.imagen %}
             <td><img src="{{lista.imagen.url}}" alt="" srcset=""></td>
             {% endif %}
+            <td><a class="btn btn-warning" href="{% url 'editar' lista.id %}">Modificar </a></td>
+            <td><a class="btn btn-danger" href="{% url 'eliminar' %}">Eliminar </a></td>
           </tr>
           {% endfor %}
         </tbody>
