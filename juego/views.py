@@ -36,17 +36,23 @@ def listar(request):
     context = {'listado': lista }
     return render(request, 'juego/listar.html', context)
 
+def editar(request):
+    juego_form = None
+    error = None
+    try:
+        juego = Juegos.objects.get(id = id)
+        if request.method == 'GET':
+            juego_form = JuegosForm(instance = autor)
+        else:
+            juego_form = JuegosForm(request.POST, instance = autor)
+            if juego_form.is_valid():
+                juego_form.save()
+            return redirect('index')
+        except ObjectDoesNotExist as e:
+            error = e
+        return render(request,'juego/listar.html', {'juego_form':juego_form,'error':error})
+
 def eliminar(request):
-    print("Eliminando producto")
-    if request.method == 'POST':
-        codigo = request.POST('code')
-
-        if codigo !="":
-            try:
-                juegos = Juegos()
-                juegos = Juegos.objects.get(code=codigo)
-                if juegos is not None:
-                    print("Nombre del juego", juegos)
-                    juegos.delete()
-
-                    return render(request, 'eliminar.html',juegos)
+    juego = Juegos.objects.get(id = id)
+    juego.delete()
+    return redirect('juegos:listar')
