@@ -14,7 +14,7 @@ urlpatterns = [
     path('proximo/', proximo, name="proximo"),
     path('stock/', stock, name="stock"),
     path('listar/', listar, name="listar"),
-    path('eliminar/', eliminar, name="eliminar"),
-    path('JuegoEdit/', edit, name="editar"),
-    path('actualizar/', actualizar_juego, name="actualizar"),
+    path('eliminar/<int:id>', eliminar, name="eliminar"),
+    path('JuegoEdit/<int:id>', edit, name="editar"),
+    path('actualizar/<int:id>', actualizar_juego, name="actualizar"),
 ]

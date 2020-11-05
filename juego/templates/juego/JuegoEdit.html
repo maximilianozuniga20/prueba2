@@ -1,24 +1,25 @@
 {% extends 'core/base.html' %}
 {% load static %}
-
+{% load crispy_forms_tags %}
 
 
 <body>
     {% block content %}
-    
-    <form action={% url 'actualizar' juego.id %} method="POST">
-        {% csrf_token %}
-        {% if mensaje %}
-            <div class="alert alert-success" role="alert">
-                Juego Actualizado exitosamente!
-            </div>
-        {% if mensaje %}
+    <div class="form-group colorx" >
+        <form action={% url 'actualizar' juego.id %} method="POST">
+            {% csrf_token %}
+            {% if mensaje %}
+                <div class="alert alert-success" role="alert">
+                    Juego Actualizado exitosamente!
+                </div>
+            {% endif  %}
 
-        {{ form|crispy}}
+            {{ form|crispy}}
 
-        <button type="submit" class="btn btn-primary">Guardar</button>
-        <a class="btn btn-warning" href="{% url 'listar' %}">Cancelar</a>
-    </form>
+            <button type="submit" class="btn btn-primary">Guardar</button>
+            <a class="btn btn-warning" href="{% url 'listar' %}">Cancelar</a>
+        </form>
+    </div>
 </body>    
 
 {% endblock %}

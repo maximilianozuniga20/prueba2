@@ -36,21 +36,21 @@ def listar(request):
     context = {'listado': lista }
     return render(request, 'juego/listar.html', context)
 
-def edit(request, id_juego):
-    juego = Juegos.objects.filter(id=id_juego).first()
+def edit(request, id):
+    juego = Juegos.objects.filter(id=id).first()
     form = FormularioJuegos(instance=juego)
     return render(request, "juego/JuegoEdit.html", {"form":form, "juego":juego} )
 
-def actualizar_juego(request, id_juego):
-    juego = Juegos.objects.get(pk=id_juego)
+def actualizar_juego(request, id):
+    juego = Juegos.objects.get(id=id)
     form = FormularioJuegos(request.POST, instance=juego)
     if form.is_valid():
         form.save()
     juegos = Juegos.objects.all()
     return render(request, "juego/listar.html", {"juegos":juegos} )
 
-def eliminar(request, id_juego):
-    juego = Juegos.objects.get(pk = id_juego)
+def eliminar(request, id):
+    juego = Juegos.objects.get(id = id)
     juego.delete()
     juegos = Juegos.objects.all()
     return render(request, 'juego/listar.html', {'juegos':juegos, "mensaje":'OK'})
